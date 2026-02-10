@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>البطه العايمه - إنشاء حساب</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-blue-50 min-h-screen flex items-center justify-center p-6">
+
+  <div class="bg-white rounded-3xl shadow-xl p-8 max-w-lg w-full border-t-8 border-yellow-400">
+
+    <div class="text-center mb-8">
+      <h1 class="text-3xl font-bold text-slate-800">البطه العايمه</h1>
+      <p class="text-slate-500">سجل حسابك الجديد</p>
+    </div>
+
+    <form id="signupForm" class="space-y-4" novalidate>
+
+      <!-- First Name -->
+      <div>
+        <input id="firstName" type="text" placeholder="الاسم الأول"
+          class="border rounded-lg p-3 w-full">
+        <p class="text-red-500 text-sm mt-1 hidden">الاسم الأول مطلوب</p>
+      </div>
+
+      <!-- Last Name -->
+      <div>
+        <input id="lastName" type="text" placeholder="اسم العائلة"
+          class="border rounded-lg p-3 w-full">
+        <p class="text-red-500 text-sm mt-1 hidden">اسم العائلة مطلوب</p>
+      </div>
+
+      <!-- Email -->
+      <div>
+        <input id="email" type="text" placeholder="Email"
+          dir="ltr" class="border rounded-lg p-3 w-full text-left">
+        <p class="text-red-500 text-sm mt-1 hidden">البريد الإلكتروني مطلوب</p>
+      </div>
+
+      <!-- Phone -->
+      <div>
+        <input id="phone" type="text" placeholder="Phone Number"
+          dir="ltr" class="border rounded-lg p-3 w-full text-left">
+        <p class="text-red-500 text-sm mt-1 hidden">رقم الهاتف مطلوب</p>
+      </div>
+
+      <!-- Password -->
+      <div>
+        <input id="password" type="password" placeholder="Password"
+          dir="ltr" class="border rounded-lg p-3 w-full text-left">
+        <p class="text-red-500 text-sm mt-1 hidden">كلمة المرور مطلوبة</p>
+      </div>
+
+      <!-- Confirm Password -->
+      <div>
+        <input id="confirmPassword" type="password" placeholder="Confirm Password"
+          dir="ltr" class="border rounded-lg p-3 w-full text-left">
+        <p class="text-red-500 text-sm mt-1 hidden">تأكيد كلمة المرور مطلوب</p>
+      </div>
+
+      <button
+        type="submit"
+        class="w-full bg-teal-500 hover:bg-teal-600 text-white font-bold py-3 rounded-full transition">
+        إنشاء الحساب
+      </button>
+
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("signupForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      let isValid = true;
+
+      const inputs = [
+        "firstName",
+        "lastName",
+        "email",
+        "phone",
+        "password",
+        "confirmPassword"
+      ];
+
+      inputs.forEach(id => {
+        const input = document.getElementById(id);
+        const error = input.nextElementSibling;
+
+        if (input.value.trim() === "") {
+          error.classList.remove("hidden");
+          input.classList.add("border-red-500");
+          isValid = false;
+        } else {
+          error.classList.add("hidden");
+          input.classList.remove("border-red-500");
+        }
+      });
+
+      // Navigate ONLY if valid
+      if (isValid) {
+        window.location.href = "login.html";
+      }
+    });
+  </script>
+
+</
