@@ -17,12 +17,13 @@
       <p class="text-slate-500">مرحباً بعودتك 👋</p>
     </div>
 
-    <form class="space-y-4">
+    <form class="space-y-4" onsubmit="handleLogin(event)">
       <input
         type="email"
         placeholder="Email"
         dir="ltr"
         class="w-full border rounded-lg p-3 text-left"
+        required
       />
 
       <input
@@ -30,6 +31,7 @@
         placeholder="pasword"
         dir="ltr"
         class="w-full border rounded-lg p-3 text-left"
+        required
       />
 
       <button
@@ -40,6 +42,14 @@
     </form>
 
   </div>
+
+  <script>
+    function handleLogin(event) {
+      event.preventDefault();
+      // Redirect to home page
+      window.location.href = "home.html";
+    }
+  </script>
 
 </body>
 </html>

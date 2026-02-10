@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>الصفحة الرئيسية</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-blue-50 min-h-screen">
+
+  <nav class="bg-teal-500 text-white p-4">
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
+      <h1 class="text-2xl font-bold">الصفحة الرئيسية</h1>
+      <button onclick="logout()" class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg transition">
+        تسجيل الخروج
+      </button>
+    </div>
+  </nav>
+
+  <div class="max-w-6xl mx-auto p-8">
+    <div class="bg-white rounded-3xl shadow-xl p-8">
+      <h2 class="text-3xl font-bold text-slate-800 mb-4">مرحباً بك! 👋</h2>
+      <p class="text-slate-600 text-lg mb-6">تم تسجيل دخولك بنجاح.</p>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-teal-500">
+          <h3 class="text-xl font-bold text-slate-800 mb-2">الميزة الأولى</h3>
+          <p class="text-slate-600">وصف الميزة الأولى يأتي هنا.</p>
+        </div>
+        
+        <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-teal-500">
+          <h3 class="text-xl font-bold text-slate-800 mb-2">الميزة الثانية</h3>
+          <p class="text-slate-600">وصف الميزة الثانية يأتي هنا.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function logout() {
+      if (confirm("هل تريد تسجيل الخروج؟")) {
+        window.location.href = "login.html";
+      }
+    }
+  </script>
+
+</body>
+</html>
