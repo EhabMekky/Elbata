@@ -13,39 +13,43 @@
   <div class="bg-white rounded-3xl shadow-xl p-8 max-w-md w-full border-t-8 border-teal-400">
 
     <div class="text-center mb-8">
-      <h1 class="text-2xl font-bold text-slate-800">تسجيل الدخول</h1>
-      <p class="text-slate-500">مرحباً بعودتك 👋</p>
+      <h1 class="text-3xl font-bold text-slate-800">تسجيل الدخول</h1>
+      <p class="text-slate-500 text-sm">مرحباً بعودتك 👋</p>
     </div>
 
     <form class="space-y-4" onsubmit="handleLogin(event)">
       <input
+        id="email"
         type="email"
         placeholder="Email"
         dir="ltr"
-        class="w-full border rounded-lg p-3 text-left"
+        class="w-full border border-gray-300 rounded-lg p-3 text-left focus:outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400"
         required
       />
+      <p class="text-red-500 text-xs mt-1 hidden" id="emailError"></p>
 
       <input
+        id="password"
         type="password"
-        placeholder="pasword"
+        placeholder="Password"
         dir="ltr"
-        class="w-full border rounded-lg p-3 text-left"
+        class="w-full border border-gray-300 rounded-lg p-3 text-left focus:outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400"
         required
       />
+      <p class="text-red-500 text-xs mt-1 hidden" id="passwordError"></p>
 
       <button
         type="submit"
-        class="w-full bg-teal-500 hover:bg-teal-600 text-white font-bold py-3 rounded-full transition">
+        class="w-full bg-teal-500 hover:bg-teal-600 text-white font-bold py-3 rounded-full transition duration-200">
         دخول
       </button>
     </form>
 
-    <div class="mt-6 text-center">
-      <p class="text-slate-600 mb-4">ليس لديك حساب؟</p>
+    <div class="mt-6 text-center border-t border-gray-200 pt-6">
+      <p class="text-slate-600 text-sm mb-4">ليس لديك حساب؟</p>
       <a 
         href="index.html"
-        class="w-full block bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold py-3 rounded-full transition text-center">
+        class="w-full block bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold py-3 rounded-full transition duration-200 text-center">
         إنشاء حساب جديد
       </a>
     </div>
@@ -53,10 +57,51 @@
   </div>
 
   <script>
+    // Default user credentials
+    const DEFAULT_USER = {
+      email: "ehab@route.com",
+      password: "Route123"
+    };
+
     function handleLogin(event) {
       event.preventDefault();
-      // Redirect to home page
-      window.location.href = "home.html";
+      
+      const emailInput = document.getElementById("email");
+      const passwordInput = document.getElementById("password");
+      const emailError = document.getElementById("emailError");
+      const passwordError = document.getElementById("passwordError");
+      
+      // Reset error messages
+      emailError.classList.add("hidden");
+      passwordError.classList.add("hidden");
+      emailInput.classList.remove("border-red-500");
+      passwordInput.classList.remove("border-red-500");
+      
+      const email = emailInput.value.trim();
+      const password = passwordInput.value.trim();
+      
+      let isValid = true;
+      
+      // Validate email
+      if (email !== DEFAULT_USER.email) {
+        emailError.textContent = "البريد الإلكتروني غير صحيح";
+        emailError.classList.remove("hidden");
+        emailInput.classList.add("border-red-500");
+        isValid = false;
+      }
+      
+      // Validate password
+      if (password !== DEFAULT_USER.password) {
+        passwordError.textContent = "كلمة المرور غير صحيحة";
+        passwordError.classList.remove("hidden");
+        passwordInput.classList.add("border-red-500");
+        isValid = false;
+      }
+      
+      // If valid, redirect to home page
+      if (isValid) {
+        window.location.href = "home.html";
+      }
     }
   </script>
 

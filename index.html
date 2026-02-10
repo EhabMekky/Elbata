@@ -10,61 +10,98 @@
 
 <body class="bg-blue-50 min-h-screen flex items-center justify-center p-6">
 
-  <div class="bg-white rounded-3xl shadow-xl p-8 max-w-lg w-full border-t-8 border-yellow-400">
+  <div class="bg-white rounded-3xl shadow-xl p-8 max-w-md w-full border-t-8 border-yellow-400">
 
     <div class="text-center mb-8">
       <h1 class="text-3xl font-bold text-slate-800">البطه العايمه</h1>
-      <p class="text-slate-500">سجل حسابك الجديد</p>
+      <p class="text-slate-500 text-sm">سجل حسابك الجديد</p>
     </div>
 
     <form id="signupForm" class="space-y-4" novalidate>
 
       <!-- First Name -->
       <div>
-        <input id="firstName" type="text" placeholder="الاسم الأول"
-          class="border rounded-lg p-3 w-full">
-        <p class="text-red-500 text-sm mt-1 hidden">الاسم الأول مطلوب</p>
+        <input 
+          id="firstName" 
+          type="text" 
+          placeholder="الاسم الأول"
+          class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400"
+        />
+        <p class="text-red-500 text-xs mt-1 hidden">الاسم الأول مطلوب</p>
       </div>
 
       <!-- Last Name -->
       <div>
-        <input id="lastName" type="text" placeholder="اسم العائلة"
-          class="border rounded-lg p-3 w-full">
-        <p class="text-red-500 text-sm mt-1 hidden">اسم العائلة مطلوب</p>
+        <input 
+          id="lastName" 
+          type="text" 
+          placeholder="اسم العائلة"
+          class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400"
+        />
+        <p class="text-red-500 text-xs mt-1 hidden">اسم العائلة مطلوب</p>
       </div>
 
       <!-- Email -->
       <div>
-        <input id="email" type="text" placeholder="Email"
-          dir="ltr" class="border rounded-lg p-3 w-full text-left">
-        <p class="text-red-500 text-sm mt-1 hidden">البريد الإلكتروني مطلوب</p>
+        <input 
+          id="email" 
+          type="email" 
+          placeholder="البريد الإلكتروني"
+          dir="ltr" 
+          class="w-full border border-gray-300 rounded-lg p-3 text-left focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400"
+        />
+        <p class="text-red-500 text-xs mt-1 hidden">البريد الإلكتروني مطلوب</p>
       </div>
 
       <!-- Phone -->
       <div>
-        <input id="phone" type="text" placeholder="Phone Number"
-          dir="ltr" class="border rounded-lg p-3 w-full text-left">
-        <p class="text-red-500 text-sm mt-1 hidden">رقم الهاتف مطلوب</p>
+        <input 
+          id="phone" 
+          type="tel" 
+          placeholder="رقم الهاتف"
+          dir="ltr" 
+          class="w-full border border-gray-300 rounded-lg p-3 text-left focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400"
+        />
+        <p class="text-red-500 text-xs mt-1 hidden">رقم الهاتف مطلوب</p>
       </div>
 
       <!-- Password -->
       <div>
-        <input id="password" type="password" placeholder="كلمة المرور"
-          dir="ltr" class="border rounded-lg p-3 w-full text-left">
-        <p class="text-red-500 text-sm mt-1 hidden">كلمة المرور مطلوبة</p>
+        <input 
+          id="password" 
+          type="password" 
+          placeholder="كلمة المرور"
+          dir="ltr" 
+          class="w-full border border-gray-300 rounded-lg p-3 text-left focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400"
+        />
+        <p class="text-red-500 text-xs mt-1 hidden">كلمة المرور مطلوبة</p>
+      </div>
+
+      <!-- Confirm Password -->
+      <div>
+        <input 
+          id="confirmPassword" 
+          type="password" 
+          placeholder="تأكيد كلمة المرور"
+          dir="ltr" 
+          class="w-full border border-gray-300 rounded-lg p-3 text-left focus:outline-none focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400"
+        />
+        <p class="text-red-500 text-xs mt-1 hidden">تأكيد كلمة المرور مطلوب</p>
       </div>
 
       <!-- Submit Button -->
-      <button type="submit" class="w-full bg-yellow-400 hover:bg-yellow-500 text-slate-800 font-bold py-3 rounded-full transition">
+      <button 
+        type="submit" 
+        class="w-full bg-yellow-400 hover:bg-yellow-500 text-slate-800 font-bold py-3 rounded-full transition duration-200 mt-6">
         إنشاء الحساب
       </button>
     </form>
 
-    <div class="mt-6 text-center">
-      <p class="text-slate-600 mb-4">هل لديك حساب؟</p>
+    <div class="mt-6 text-center border-t border-gray-200 pt-6">
+      <p class="text-slate-600 text-sm mb-4">هل لديك حساب؟</p>
       <a 
         href="login.html"
-        class="w-full block bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold py-3 rounded-full transition text-center">
+        class="w-full block bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold py-3 rounded-full transition duration-200 text-center">
         دخول
       </a>
     </div>
@@ -75,7 +112,7 @@
     document.getElementById("signupForm").addEventListener("submit", function (e) {
       e.preventDefault();
 
-      const fields = ["firstName", "lastName", "email", "phone", "password"];
+      const fields = ["firstName", "lastName", "email", "phone", "password", "confirmPassword"];
       let isValid = true;
 
       fields.forEach(id => {
@@ -92,6 +129,18 @@
         }
       });
 
+      // Check if passwords match
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
+      
+      if (password !== confirmPassword) {
+        const confirmPasswordError = document.getElementById("confirmPassword").nextElementSibling;
+        confirmPasswordError.textContent = "كلمات المرور غير متطابقة";
+        confirmPasswordError.classList.remove("hidden");
+        document.getElementById("confirmPassword").classList.add("border-red-500");
+        isValid = false;
+      }
+
       // Navigate ONLY if valid
       if (isValid) {
         window.location.href = "login.html";
@@ -101,62 +150,4 @@
 
 </body>
 </html>
-      <div>
-        <input id="password" type="password" placeholder="Password"
-          dir="ltr" class="border rounded-lg p-3 w-full text-left">
-        <p class="text-red-500 text-sm mt-1 hidden">كلمة المرور مطلوبة</p>
-      </div>
-
-      <!-- Confirm Password -->
-      <div>
-        <input id="confirmPassword" type="password" placeholder="Confirm Password"
-          dir="ltr" class="border rounded-lg p-3 w-full text-left">
-        <p class="text-red-500 text-sm mt-1 hidden">تأكيد كلمة المرور مطلوب</p>
-      </div>
-
-      <button
-        type="submit"
-        class="w-full bg-teal-500 hover:bg-teal-600 text-white font-bold py-3 rounded-full transition">
-        إنشاء الحساب
-      </button>
-
-    </form>
-  </div>
-
-  <script>
-    document.getElementById("signupForm").addEventListener("submit", function (e) {
-      e.preventDefault();
-
-      let isValid = true;
-
-      const inputs = [
-        "firstName",
-        "lastName",
-        "email",
-        "phone",
-        "password",
-        "confirmPassword"
-      ];
-
-      inputs.forEach(id => {
-        const input = document.getElementById(id);
-        const error = input.nextElementSibling;
-
-        if (input.value.trim() === "") {
-          error.classList.remove("hidden");
-          input.classList.add("border-red-500");
-          isValid = false;
-        } else {
-          error.classList.add("hidden");
-          input.classList.remove("border-red-500");
-        }
-      });
-
-      // Navigate ONLY if valid
-      if (isValid) {
-        window.location.href = "login.html";
-      }
-    });
-  </script>
-
 </
