@@ -49,6 +49,59 @@
 
       <!-- Password -->
       <div>
+        <input id="password" type="password" placeholder="كلمة المرور"
+          dir="ltr" class="border rounded-lg p-3 w-full text-left">
+        <p class="text-red-500 text-sm mt-1 hidden">كلمة المرور مطلوبة</p>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="w-full bg-yellow-400 hover:bg-yellow-500 text-slate-800 font-bold py-3 rounded-full transition">
+        إنشاء الحساب
+      </button>
+    </form>
+
+    <div class="mt-6 text-center">
+      <p class="text-slate-600 mb-4">هل لديك حساب؟</p>
+      <a 
+        href="login.html"
+        class="w-full block bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold py-3 rounded-full transition text-center">
+        دخول
+      </a>
+    </div>
+
+  </div>
+
+  <script>
+    document.getElementById("signupForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const fields = ["firstName", "lastName", "email", "phone", "password"];
+      let isValid = true;
+
+      fields.forEach(id => {
+        const input = document.getElementById(id);
+        const error = input.nextElementSibling;
+
+        if (input.value.trim() === "") {
+          error.classList.remove("hidden");
+          input.classList.add("border-red-500");
+          isValid = false;
+        } else {
+          error.classList.add("hidden");
+          input.classList.remove("border-red-500");
+        }
+      });
+
+      // Navigate ONLY if valid
+      if (isValid) {
+        window.location.href = "login.html";
+      }
+    });
+  </script>
+
+</body>
+</html>
+      <div>
         <input id="password" type="password" placeholder="Password"
           dir="ltr" class="border rounded-lg p-3 w-full text-left">
         <p class="text-red-500 text-sm mt-1 hidden">كلمة المرور مطلوبة</p>
