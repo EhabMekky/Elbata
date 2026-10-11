@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>تفاصيل المنتج | البطه العايمة</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { margin: 0; background: #f6f8f2; color: #183b3a; font-family: "Tajawal", sans-serif; }
+    button, input { font: inherit; }
+    .page-width { width: min(1050px, calc(100% - 32px)); margin-inline: auto; }
+    .product-image { display: grid; place-items: center; position: relative; min-height: 300px; aspect-ratio: 4 / 3; overflow: hidden; background: #e7f1e9; }
+    .product-image img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .control-focus:focus-visible, button:focus-visible, a:focus-visible { outline: 3px solid #f4c84a; outline-offset: 2px; }
+    @media (max-width: 640px) { .product-image { min-height: 220px; } }
+  </style>
+</head>
+<body class="min-h-screen">
+  <nav class="bg-teal-800 text-white">
+    <div class="page-width flex min-h-16 items-center justify-between gap-3 py-3">
+      <a class="text-lg font-extrabold text-white no-underline" href="home.html">البطه العايمة</a>
+      <a class="rounded-md border border-teal-600 px-3 py-2 text-sm font-bold text-white no-underline hover:bg-teal-700" href="home.html#cart">السلة</a>
+    </div>
+  </nav>
+  <main class="page-width py-7">
+    <a href="home.html" class="text-sm font-bold text-teal-800 underline underline-offset-4">العودة إلى المتجر</a>
+    <section class="mt-5 grid items-center gap-7 border-y border-teal-900/10 bg-white p-5 sm:grid-cols-2 sm:p-8" aria-labelledby="productName">
+      <div id="productImage" class="product-image" aria-label="صورة المنتج"><span class="text-6xl" aria-hidden="true">🦆</span></div>
+      <div>
+        <p id="productCategory" class="mb-2 text-sm font-bold text-teal-700"></p>
+        <h1 id="productName" class="m-0 text-3xl font-extrabold text-teal-950">منتج بطّي</h1>
+        <p id="productDescription" class="my-4 text-base leading-8 text-slate-600"></p>
+        <p id="productPrice" class="text-2xl font-extrabold text-teal-800"></p>
+        <div class="mt-6 flex flex-wrap items-center gap-3">
+          <label for="quantity" class="font-bold">الكمية</label>
+          <input id="quantity" class="control-focus w-24 rounded-md border border-slate-300 bg-white px-3 py-2 text-center" type="number" min="1" max="99" value="1" inputmode="numeric" />
+          <button id="addButton" type="button" class="rounded-md bg-yellow-300 px-5 py-3 font-extrabold text-teal-950 hover:bg-yellow-400">أضف للسلة</button>
+        </div>
+        <output id="productMessage" class="mt-3 block min-h-6 text-sm text-teal-800" aria-live="polite"></output>
+      </div>
+    </section>
+  </main>
+  <script src="store.js"></script>
+  <script>
+    const productId = Number(new URLSearchParams(window.location.search).get("id"));
+    const product = DuckStore.products.find((item) => item.id === productId);
+    if (!product) {
+      window.location.replace("home.html");
+    } else {
+      document.title = `${product.name} | البطه العايمة`;
+      document.getElementById("productName").textContent = product.name;
+      document.getElementById("productDescription").textContent = product.description;
+      document.getElementById("productCategory").textContent = product.categoryLabel;
+      document.getElementById("productPrice").textContent = DuckStore.formatPrice(product.price);
+      const image = document.createElement("img");
+      image.src = product.image;
+      image.alt = product.alt;
+      image.addEventListener("error", () => image.remove(), { once: true });
+      document.getElementById("productImage").append(image);
+      document.getElementById("addButton").addEventListener("click", () => {
+        const quantityInput = document.getElementById("quantity");
+        const quantity = Number(quantityInput.value);
+        if (!Number.isSafeInteger(quantity) || quantity < 1 || quantity > 99) {
+          quantityInput.setCustomValidity("اختر كمية من ١ إلى ٩٩.");
+          quantityInput.reportValidity();
+          return;
+        }
+        quantityInput.setCustomValidity("");
+        const cart = DuckStore.loadCart();
+        cart.set(product.id, (cart.get(product.id) || 0) + quantity);
+        if (!DuckStore.saveCart(cart)) {
+          document.getElementById("productMessage").textContent = "تعذّر حفظ السلة في هذا المتصفح.";
+          return;
+        }
+        window.location.href = "home.html#cart";
+      });
+    }
+  </script>
+</body>
+</html>

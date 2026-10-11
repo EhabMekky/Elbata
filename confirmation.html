@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>تم تأكيد الطلب | البطه العايمة</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { margin: 0; background: #f6f8f2; color: #183b3a; font-family: "Tajawal", sans-serif; }
+    .page-width { width: min(760px, calc(100% - 32px)); margin-inline: auto; }
+    .order-row + .order-row { border-top: 1px solid #e7eeea; }
+    a:focus-visible { outline: 3px solid #f4c84a; outline-offset: 2px; }
+  </style>
+</head>
+<body class="min-h-screen">
+  <nav class="bg-teal-800 text-white">
+    <div class="page-width flex min-h-16 items-center py-3">
+      <a class="text-lg font-extrabold text-white no-underline" href="home.html">البطه العايمة</a>
+    </div>
+  </nav>
+  <main class="page-width py-8">
+    <section class="border-y border-teal-900/10 bg-white p-6 sm:p-9" aria-labelledby="confirmationTitle">
+      <p class="mb-2 text-sm font-bold text-teal-700">وصلت البطّات!</p>
+      <h1 id="confirmationTitle" class="m-0 text-3xl font-extrabold text-teal-950">تم تسجيل طلبك التجريبي</h1>
+      <p class="mb-5 mt-2 leading-7 text-slate-600">ده تأكيد تجريبي فقط. لم يتم تحصيل أي مبلغ أو إرسال طلب حقيقي.</p>
+      <div class="grid gap-2 border-y border-slate-200 py-4 text-sm sm:grid-cols-2">
+        <p class="m-0"><strong>رقم الطلب:</strong> <span id="orderReference" dir="ltr"></span></p>
+        <p class="m-0"><strong>الاسم:</strong> <span id="customerName"></span></p>
+        <p class="m-0 sm:col-span-2"><strong>طريقة الاستلام:</strong> <span id="deliverySummary"></span></p>
+      </div>
+      <h2 class="mb-2 mt-6 text-lg font-extrabold">تفاصيل الطلب</h2>
+      <div id="confirmedItems"></div>
+      <div class="mt-3 border-t border-slate-200 pt-3 text-sm">
+        <div class="mb-2 flex justify-between"><span>المنتجات</span><span id="confirmedSubtotal"></span></div>
+        <div class="mb-2 flex justify-between"><span>التوصيل</span><span id="confirmedDelivery"></span></div>
+        <div class="flex justify-between text-base font-extrabold text-teal-950"><span>الإجمالي التجريبي</span><span id="confirmedTotal"></span></div>
+      </div>
+      <a href="home.html" class="mt-7 inline-block rounded-md bg-teal-700 px-5 py-3 font-extrabold text-white no-underline hover:bg-teal-800">العودة إلى المتجر</a>
+    </section>
+  </main>
+  <script src="store.js"></script>
+  <script>
+    const order = DuckStore.consumeConfirmationOrder();
+    if (!order) {
+      window.location.replace("home.html");
+    } else {
+      document.getElementById("orderReference").textContent = order.reference;
+      document.getElementById("customerName").textContent = order.customer.name;
+      document.getElementById("deliverySummary").textContent = order.customer.deliveryMethod === "pickup" ? "استلام من نقطة التجميع" : "توصيل للمنزل";
+      const confirmedItems = document.getElementById("confirmedItems");
+      order.items.forEach((item) => {
+        const line = document.createElement("div");
+        line.className = "order-row flex justify-between gap-3 py-3 text-sm";
+        const name = document.createElement("span");
+        name.textContent = `${item.name} × ${item.quantity}`;
+        const price = document.createElement("span");
+        price.className = "shrink-0";
+        price.textContent = DuckStore.formatPrice(item.lineTotal);
+        line.append(name, price);
+        confirmedItems.append(line);
+      });
+      document.getElementById("confirmedSubtotal").textContent = DuckStore.formatPrice(order.subtotal);
+      document.getElementById("confirmedDelivery").textContent = order.deliveryFee === 0 ? "مجاني" : DuckStore.formatPrice(order.deliveryFee);
+      document.getElementById("confirmedTotal").textContent = DuckStore.formatPrice(order.total);
+    }
+  </script>
+</body>
+</html>
